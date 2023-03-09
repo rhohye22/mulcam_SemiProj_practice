@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class BizMemberDto implements Serializable{
 
+	private String id;
 	private String company;
 	private String pwd;
 	private String email;
@@ -12,13 +13,22 @@ public class BizMemberDto implements Serializable{
 	
 	public BizMemberDto() {}
 
-	public BizMemberDto(String company, String pwd, String email, String contact, int auth) {
+	public BizMemberDto(String id, String company, String pwd, String email, String contact, int auth) {
 		super();
+		this.id = id;
 		this.company = company;
 		this.pwd = pwd;
 		this.email = email;
 		this.contact = contact;
 		this.auth = auth;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCompany() {
@@ -63,8 +73,9 @@ public class BizMemberDto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "BizMemberDto [company=" + company + ", pwd=" + pwd + ", email=" + email + ", contact=" + contact + ", auth=" + auth + "]";
+		return "BizMemberDto [id=" + id + ", company=" + company + ", pwd=" + pwd + ", email=" + email + ", contact=" + contact + ", auth=" + auth + "]";
 	}
-	
+
+
 	
 }

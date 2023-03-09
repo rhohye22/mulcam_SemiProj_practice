@@ -5,7 +5,7 @@
 <mapper namespace="BizMember">
 
 	<select id="allMember" resultType="mul.cam.a.dto.MemberDto">
-		select company, pwd, email, contact, auth
+		select id, company, pwd, email, contact, auth
 		from bizmember		
 	</select>
 	
@@ -16,14 +16,14 @@
 	</select>
 	
 	<insert id="addmember" parameterType="mul.cam.a.dto.MemberDto">
-		insert into bizmember(company, pwd, email, contact, auth)
-		values(#{company}, #{pwd}, #{email}, #{contact}, 2)
+		insert into bizmember(id, company, pwd, email, contact, auth)
+		values(#{id}, #{company}, #{pwd}, #{email}, #{contact}, 2)
 	</insert>
 	
 	<select id="login" parameterType="mul.cam.a.dto.MemberDto" resultType="mul.cam.a.dto.MemberDto">
-	select company, contact, email
+	select id, company, contact, email
 	from bizmember
-	where id=#{company} and pwd=#{pwd}	
+	where id=#{id} and pwd=#{pwd}	
 	</select>
 
 
