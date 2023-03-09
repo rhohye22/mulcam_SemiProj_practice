@@ -115,7 +115,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-user"></i>
 								</span>
 							</div>
-							<input id="id" name="id" class="form-control" placeholder="id" type="text">
+							<input id="id" name="id" class="form-control" placeholder="아이디" type="text">
 							<button type="button" id="idChkBtn" class="btn btn-danger">id check</button>
 						</div>
 						<!-- form-group// -->
@@ -126,14 +126,14 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-user"></i>
 								</span>
 							</div>
-							<input name="name" class="form-control" placeholder="Full name" type="text">
+							<input name="name" class="form-control" placeholder="이름" type="text">
 						</div>
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-envelope"></i>
 								</span>
 							</div>
-							<input name="email" class="form-control" placeholder="Email address" type="email">
+							<input name="email" class="form-control" placeholder="이메일" type="email">
 						</div>
 
 						<!-- 						<input type="hidden" name="auth" value="0"> -->
@@ -144,7 +144,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-lock"></i>
 								</span>
 							</div>
-							<input id="pw1" name="pwd" class="form-control" placeholder="Create password" type="password">
+							<input id="pw1" name="pwd" class="form-control" placeholder="비밀번호" type="password">
 						</div>
 						<!-- form-group// -->
 
@@ -153,7 +153,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-lock"></i>
 								</span>
 							</div>
-							<input id="pw2" class="form-control" placeholder="Repeat password" type="password">
+							<input id="pw2" class="form-control" placeholder="비밀번호 확인" type="password">
 
 						</div>
 						<p id="pw_ck" style="margin-left: 10px;"></p>
@@ -184,8 +184,18 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-user"></i>
 								</span>
 							</div>
-							<input id=company name="company" class="form-control" placeholder="company name(id로 사용됩니다)" type="text">
-							<button type="button" id="idChkBtn" class="btn btn-danger">id check</button>
+							<input id=companyId name="id" class="form-control" placeholder="로그인시 사용할 아이디" type="text">
+							<button type="button" id="BizidChkBtn" class="btn btn-danger">id check</button>
+						</div>
+						<p id="Bizidcheck" style="margin-left: 10px;"></p>
+
+
+						<div class="form-group input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fa fa-user"></i>
+								</span>
+							</div>
+							<input id=company name="company" class="form-control" placeholder="회사 이름" type="text">
 						</div>
 						<!-- form-group// -->
 
@@ -196,7 +206,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-envelope"></i>
 								</span>
 							</div>
-							<input name="email" class="form-control" placeholder="Email address" type="email">
+							<input name="email" class="form-control" placeholder="이메일주소" type="email">
 						</div>
 						<!-- form-group// -->
 
@@ -205,7 +215,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-phone"></i>
 								</span>
 							</div>
-							<input type="text" id="test_id"  name="contact"  class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'test_id')"">
+							<input type="text" id="test_id" name="contact" class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'test_id')">
 						</div>
 						<!-- form-group end.// -->
 						<div class="form-group input-group">
@@ -213,7 +223,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-lock"></i>
 								</span>
 							</div>
-							<input id="biz_pw1" name="pwd" class="form-control" placeholder="Create password" type="password">
+							<input id="biz_pw1" name="pwd" class="form-control" placeholder="비밀번호" type="password">
 						</div>
 						<!-- form-group// -->
 
@@ -222,7 +232,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-lock"></i>
 								</span>
 							</div>
-							<input id="biz_pw2" class="form-control" placeholder="Repeat password" type="password">
+							<input id="biz_pw2" class="form-control" placeholder="비밀번호 확인" type="password">
 						</div>
 						<p id="biz_pw_ck" style="margin-left: 10px;"></p>
 						<!-- form-group// -->
@@ -243,9 +253,11 @@ ul, li {
 	</article>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
+		
+	//일반회원 아이디 중복 확인
+	$(document).ready(function() {
 
-			$("#idChkBtn").click(function() {
+			$("#BizidChkBtn").click(function() {
 				// id의 빈칸을 조사!
 
 				$.ajax({
@@ -256,11 +268,11 @@ ul, li {
 					},
 					success : function(msg) {
 						if (msg == "YES") {
-							$("#idcheck").css("color", "#0000ff");
-							$("#idcheck").text("사용할 수 있는 아이디입니다");
+							$("#Bizidcheck").css("color", "#0000ff");
+							$("#Bizidcheck").text("사용할 수 있는 아이디입니다");
 						} else {
-							$("#idcheck").css("color", "#ff0000");
-							$("#idcheck").text("사용중인 아이디입니다");
+							$("#Bizidcheck").css("color", "#ff0000");
+							$("#Bizidcheck").text("사용중인 아이디입니다");
 							$("#id").val("");
 						}
 					},
@@ -271,6 +283,39 @@ ul, li {
 			});
 		});
 
+	//기업회원 아이디 중복 확인
+	$(document).ready(function() {
+
+			$("#idChkBtn").click(function() {
+				// id의 빈칸을 조사!
+
+				$.ajax({
+					type : "post",
+					url : "Bizidcheck.do",
+					data : {
+						"companyId" : $("#companyId").val()
+					},
+					success : function(msg) {
+						if (msg == "YES") {
+							$("#idcheck").css("color", "#0000ff");
+							$("#idcheck").text("사용할 수 있는 아이디입니다");
+						} else {
+							$("#idcheck").css("color", "#ff0000");
+							$("#idcheck").text("사용중인 아이디입니다");
+							$("#companyId").val("");
+						}
+					},
+					error : function() {
+						alert('error');
+					}
+				});
+			});
+		});
+
+		
+		
+		
+		
 		$(function() {
 			$('.tabcontent > div').hide();
 			$('.tabnav a').click(function() {
@@ -280,7 +325,7 @@ ul, li {
 				return false;
 			}).filter(':eq(0)').click();
 		});
-		
+
 		// 일반회원 비밀번호 확인
 		$(function() {
 			$('#pw1').keyup(function() {
@@ -321,7 +366,7 @@ ul, li {
 
 			});
 		});
-		
+
 		//전화번호에 하이픈 자동으로 넣는 함수
 		function chk_tel(str, id) {
 			str = str.replace(/[^0-9]/g, '');
