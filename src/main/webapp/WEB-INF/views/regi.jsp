@@ -226,7 +226,7 @@ $(function() {
 								<span class="input-group-text"> <i class="fa fa-phone"></i>
 								</span>
 							</div>
-							<input type="text" id="contact" name="contact" class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'test_id')">
+							<input type="text" id="contact" name="contact" class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'contact')">
 						</div>
 						<!-- form-group end.// -->
 						<div class="form-group input-group">
