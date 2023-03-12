@@ -46,4 +46,14 @@ public class MemberDaoImpl implements MemberDao{
 		return mem;
 	}
 	
+	@Override
+	public int BizAadmember(MemberDto dto) {
+		return session.insert(ns +"BizAadmember", dto);
+	}
+	
+	@Override
+	public MemberDto Bizlogin(MemberDto dto) {
+		MemberDto mem = session.selectOne(ns + "Bizlogin", dto);
+		return mem;
+	}
 }

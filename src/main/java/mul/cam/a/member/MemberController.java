@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mul.cam.a.dto.BbsDto;
@@ -62,7 +63,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "loginAf.do", method = RequestMethod.POST)
-	public String login(HttpServletRequest req, Model model,MemberDto dto) {
+	public String loginAf(HttpServletRequest req, Model model,MemberDto dto) {
 //		System.out.println("MemberController login " + new Date());
 		
 		MemberDto mem = service.login(dto);
@@ -79,7 +80,40 @@ public class MemberController {
 		model.addAttribute("login",msg);
 		return "message";
 	}
+	@RequestMapping(value = "BizloginAf.do", method = RequestMethod.POST)
+	public String BizloginAf(HttpServletRequest req, Model model,MemberDto dto) {
+//		System.out.println("MemberController login " + new Date());
+		
+		MemberDto mem = service.Bizlogin(dto);
+		String msg ="";
+		if (mem != null) {
+			req.getSession().setAttribute("login", mem);
+			req.getSession().setMaxInactiveInterval(7200);
+			msg = "LOGIN_OK"; 
+			System.out.println();
+		}else {
+			msg = "LOGIN_FAIL"; 
+			System.out.println();
+		}
+		model.addAttribute("login",msg);
+		return "message";
+	}
 	
+	@RequestMapping(value = "regiAfBiz.do", method = RequestMethod.POST)
+	public String regiAfBiz(Model model, MemberDto dto) {
+//		System.out.println("MemberController regiAf " + new Date());
+		boolean isS = service.BizAadmember(dto);
+		String message = "";
+		if (isS) {
+			message = "MEMBER_ADD_YES";
+		}else {
+			message = "MEMBER_ADD_NO";
+		}
+		model.addAttribute("message", message);
+		return "message";
+	}
+
+
 	
 	// session check
 	@RequestMapping(value = "sessionOut.do", method = RequestMethod.GET)

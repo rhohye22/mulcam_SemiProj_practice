@@ -96,6 +96,20 @@ ul, li {
 
 </head>
 <body>
+<script type="text/javascript">
+$(function() {
+	$('.tabcontent > div').hide();
+	$('.tabnav a').click(function() {
+		$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+		$('.tabnav a').removeClass('active');
+		$(this).addClass('active');
+		return false;
+	}).filter(':eq(0)').click();
+});
+
+
+
+</script>
 
 	<article class="card-body mx-auto" style="max-width: 600px;">
 
@@ -109,13 +123,13 @@ ul, li {
 			</ul>
 			<div class="tabcontent" align="center">
 				<div id="tab01">
-					<form action="regiAf.do" method="post">
+					<form action="regiAf.do" method="post" id="regiForm1">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-user"></i>
 								</span>
 							</div>
-							<input id="id" name="id" class="form-control" placeholder="아이디" type="text">
+							<input id ="id" name="id" class="form-control" placeholder="아이디" type="text">
 							<button type="button" id="idChkBtn" class="btn btn-danger">id check</button>
 						</div>
 						<!-- form-group// -->
@@ -126,18 +140,15 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-user"></i>
 								</span>
 							</div>
-							<input name="name" class="form-control" placeholder="이름" type="text">
+							<input id="name" name="name" class="form-control" placeholder="이름" type="text">
 						</div>
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-envelope"></i>
 								</span>
 							</div>
-							<input name="email" class="form-control" placeholder="이메일" type="email">
+							<input id="email" name="email" class="form-control" placeholder="이메일" type="email">
 						</div>
-
-						<!-- 						<input type="hidden" name="auth" value="0"> -->
-						<!--일반 회원 0 -->
 
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
@@ -161,7 +172,7 @@ ul, li {
 
 						<div class="form-group"></div>
 						<!--tab-->
-						<input type="submit" class="btn btn-primary btn-block" value="Create Account">
+						<input type="button" id ="regi1Btn1" class="btn btn-primary btn-block" value="Create Account">
 						<div>
 							<p class="text-center">
 								Have an account? <a href="login.do">Log In</a>
@@ -178,7 +189,7 @@ ul, li {
 
 
 				<div id="tab02">
-					<form action="regiAfBiz.do" method="post">
+					<form action="regiAfBiz.do" method="post"  id="regiForm2">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-user"></i>
@@ -206,7 +217,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-envelope"></i>
 								</span>
 							</div>
-							<input name="email" class="form-control" placeholder="이메일주소" type="email">
+							<input id="Bizemail" name="email" class="form-control" placeholder="이메일주소" type="email">
 						</div>
 						<!-- form-group// -->
 
@@ -215,7 +226,7 @@ ul, li {
 								<span class="input-group-text"> <i class="fa fa-phone"></i>
 								</span>
 							</div>
-							<input type="text" id="test_id" name="contact" class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'test_id')">
+							<input type="text" id="contact" name="contact" class="form-control" maxlength="13" placeholder=" '-' 없이 숫자만 입력해주세요" onkeyup="chk_tel(this.value,'test_id')">
 						</div>
 						<!-- form-group end.// -->
 						<div class="form-group input-group">
@@ -239,7 +250,7 @@ ul, li {
 
 						<div class="form-group"></div>
 						<!--tab-->
-						<button type="submit" class="btn btn-primary btn-block">Create Account</button>
+						<button type="button" id="regi1Btn2"class="btn btn-primary btn-block">Create Account</button>
 						<div>
 							<p class="text-center">
 								Have an account? <a href="login.do">Log In</a>
@@ -253,19 +264,22 @@ ul, li {
 	</article>
 
 	<script type="text/javascript">
-		
-	//일반회원 아이디 중복 확인
-	$(document).ready(function() {
+	
+	
+		//기업회원  아이디 중복 확인
+		$(document).ready(function() {
 
 			$("#BizidChkBtn").click(function() {
 				// id의 빈칸을 조사!
 
 				$.ajax({
 					type : "post",
+
 					url : "idcheck.do",
 					data : {
-						"id" : $("#id").val()
+						"id" : $("#companyId").val()
 					},
+
 					success : function(msg) {
 						if (msg == "YES") {
 							$("#Bizidcheck").css("color", "#0000ff");
@@ -273,35 +287,6 @@ ul, li {
 						} else {
 							$("#Bizidcheck").css("color", "#ff0000");
 							$("#Bizidcheck").text("사용중인 아이디입니다");
-							$("#id").val("");
-						}
-					},
-					error : function() {
-						alert('error');
-					}
-				});
-			});
-		});
-
-	//기업회원 아이디 중복 확인
-	$(document).ready(function() {
-
-			$("#idChkBtn").click(function() {
-				// id의 빈칸을 조사!
-
-				$.ajax({
-					type : "post",
-					url : "Bizidcheck.do",
-					data : {
-						"companyId" : $("#companyId").val()
-					},
-					success : function(msg) {
-						if (msg == "YES") {
-							$("#idcheck").css("color", "#0000ff");
-							$("#idcheck").text("사용할 수 있는 아이디입니다");
-						} else {
-							$("#idcheck").css("color", "#ff0000");
-							$("#idcheck").text("사용중인 아이디입니다");
 							$("#companyId").val("");
 						}
 					},
@@ -312,19 +297,37 @@ ul, li {
 			});
 		});
 
-		
-		
-		
-		
-		$(function() {
-			$('.tabcontent > div').hide();
-			$('.tabnav a').click(function() {
-				$('.tabcontent > div').hide().filter(this.hash).fadeIn();
-				$('.tabnav a').removeClass('active');
-				$(this).addClass('active');
-				return false;
-			}).filter(':eq(0)').click();
+		//일반회원 아이디 중복 확인
+		$(document).ready(function() {
+
+			$("#idChkBtn").click(function() {
+				// id의 빈칸을 조사!
+
+				$.ajax({
+					type : "post",
+
+					url : "idcheck.do",
+					data : {
+						"id" : $("#id").val()
+					},
+					success : function(msg) {
+						if (msg == "YES") {
+							$("#idcheck").css("color", "#0000ff");
+							$("#idcheck").text("사용할 수 있는 아이디입니다");
+						} else {
+							$("#idcheck").css("color", "#ff0000");
+							$("#idcheck").text("사용중인 아이디입니다");
+							$("#id").val("");
+						}
+					},
+					error : function() {
+						alert('error');
+					}
+				});
+			});
 		});
+
+		
 
 		// 일반회원 비밀번호 확인
 		$(function() {
@@ -364,6 +367,52 @@ ul, li {
 
 				}
 
+			});
+		});
+
+//일반회원 회원가입 빈칸알럿
+		$(function() {
+			// .submit() -> 해당 form에서 sunmit 이벤트가 발생했을 때, 실행
+			$("#regi1Btn1").click(function() {
+				if ($("#id").val().trim() == "") {
+					alert("아이디를 입력하세요");
+				} else if ($("#name").val().trim() == "") {
+					alert("이름을 입력하세요");
+				} else if ($("#email").val().trim() == "") {
+					alert("이메일을 입력하세요");
+				} else if ($("#pw1").val().trim() == "") {
+					alert("비밀번호를 입력하세요");
+				} else if ($("#pw2").val().trim() == "") {
+					alert("확인 비밀번호를 입력하세요");
+				} else if ($("#pw2").val().trim() != $("#pw1").val().trim()) {
+					alert("비밀번호가 다릅니다");
+				} else {
+					$("#regiForm1").submit();
+				}
+			});
+		});
+
+		//기업회원 회원가입 빈칸알럿
+		$(function() {
+			// .submit() -> 해당 form에서 sunmit 이벤트가 발생했을 때, 실행
+			$("#regi1Btn2").click(function() {
+				if ($("#company").val().trim() == "") {
+					alert("회사명을 입력하세요");
+				} else if ($("#companyId").val().trim() == "") {
+					alert("아이디를 입력하세요");
+				} else if ($("#Bizemail").val().trim() == "") {
+					alert("이메일을 입력하세요");
+				} else if ($("#contact").val().trim() == "") {
+					alert("전화번호를 입력하세요");
+				} else if ($("#biz_pw1").val().trim() == "") {
+					alert("비밀번호를 입력하세요");
+				} else if ($("#biz_pw2").val().trim() == "") {
+					alert("확인 비밀번호를 입력하세요");
+				} else if ($("#biz_pw2").val().trim() != $("#biz_pw1").val().trim()) {
+					alert("비밀번호가 다릅니다");
+				} else {
+					$("#regiForm2").submit();
+				}
 			});
 		});
 
@@ -421,6 +470,6 @@ ul, li {
 			}
 		}
 	</script>
-<!-- 주석 -->
+	<!-- 주석 -->
 </body>
 </html>

@@ -41,4 +41,14 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDto login(MemberDto dto) {
 		return dao.login(dto);
 	}
+	@Override
+	public boolean BizAadmember(MemberDto dto) {
+		int count = dao.BizAadmember(dto);
+		return count>0?true:false;
+	}
+	@Override
+	public MemberDto Bizlogin(MemberDto dto) {
+		
+		return dao.Bizlogin(dto);
+	}
 }

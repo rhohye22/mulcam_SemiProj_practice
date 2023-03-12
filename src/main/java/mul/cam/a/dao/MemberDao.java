@@ -9,4 +9,6 @@ public interface MemberDao {
 	int idCheck(String id);
 	int addMember(MemberDto dto);
 	MemberDto login(MemberDto dto);
+	int BizAadmember(MemberDto dto);
+	MemberDto Bizlogin(MemberDto dto);
 }
